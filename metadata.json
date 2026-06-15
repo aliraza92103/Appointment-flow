@@ -1,0 +1,8 @@
+{
+  "name": "Remix: AppointFlow",
+  "description": "Premium WhatsApp Appointment Reminder SaaS with Apple-style Liquid Glass UI, Lightfall WebGL background, and AI-powered custom reminders.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

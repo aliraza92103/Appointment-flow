@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-serif: "Playfair Display", serif;
+  
+  --color-grid-lines: var(--grid-lines-color);
+}
+
+:root {
+  --bg-primary: #0b0f14;
+  --bg-secondary: #0f172a;
+  --text-primary: #f3f4f6;
+  --text-muted: #9ca3af;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.16);
+  --glass-bg: rgba(20, 26, 35, 0.55);
+  --glass-bg-heavy: rgba(15, 22, 30, 0.85);
+  --glass-card: rgba(255, 255, 255, 0.03);
+  --glass-card-hover: rgba(255, 255, 255, 0.06);
+  --grid-lines-color: rgba(255, 255, 255, 0.05);
+  --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --theme-accent: #25D366;
+}
+
+html.light {
+  --bg-primary: #fafafa;
+  --bg-secondary: #f3f4f6;
+  --text-primary: #111827;
+  --text-muted: #4b5563;
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-hover: rgba(0, 0, 0, 0.14);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-bg-heavy: rgba(252, 252, 253, 0.9);
+  --glass-card: rgba(0, 0, 0, 0.02);
+  --glass-card-hover: rgba(0, 0, 0, 0.04);
+  --grid-lines-color: rgba(0, 0, 0, 0.03);
+  --card-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.05);
+  --theme-accent: #059669;
+}
+
+/* Base resets & styles */
+html, body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(11, 15, 20, 0.1);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-hover);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Glassmorphism Classes (Apple Liquid Glass UI) */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  transition: background-color 300ms ease, border-color 300ms ease;
+}
+
+.glass-panel-heavy {
+  background: var(--glass-bg-heavy);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-color);
+  transition: background-color 300ms ease, border-color 300ms ease;
+}
+
+.glass-card {
+  background: var(--glass-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  border-color: var(--border-hover);
+  background: var(--glass-card-hover);
+}
+
+/* Glossy Liquid Glass Button styling */
+.glass-button-primary {
+  background: linear-gradient(135deg, rgba(37, 211, 102, 0.8) 0%, rgba(0, 255, 136, 0.8) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 20px 0 rgba(37, 211, 102, 0.3), inset 0 2px 4px 0 rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(4px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.glass-button-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px 0 rgba(37, 211, 102, 0.55), inset 0 2px 8px 0 rgba(255, 255, 255, 0.6);
+  filter: brightness(1.1);
+}
+
+.glass-button-primary:active {
+  transform: translateY(0px);
+}
+
+.glass-button-secondary {
+  background: var(--glass-card);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.05), inset 0 1px 2px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-button-secondary:hover {
+  background: var(--glass-card-hover);
+  border-color: var(--border-hover);
+  transform: translateY(-1px);
+}
+
+/* Glowing text and items */
+.text-glow-green {
+  text-shadow: 0 0 12px rgba(37, 211, 102, 0.4);
+}
+
+.text-glow-blue {
+  text-shadow: 0 0 12px rgba(77, 163, 255, 0.4);
+}
+
+/* Spotlight backdrop pulse */
+@keyframes bg-radial-pulse {
+  0% { transform: scale(1); opacity: 0.15; }
+  50% { transform: scale(1.15); opacity: 0.25; }
+  100% { transform: scale(1); opacity: 0.15; }
+}
+
+.spotlight-pulse {
+  animation: bg-radial-pulse 10s infinite ease-in-out;
+}
+
+/* Liquid fluid effect */
+@keyframes fluid-blob {
+  0% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; }
+  33% { border-radius: 70% 30% 52% 48% / 60% 40% 60% 40%; }
+  66% { border-radius: 50% 50% 30% 70% / 40% 60% 40% 60%; }
+  100% { border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; }
+}
+
+.liquid-blob {
+  animation: fluid-blob 12s infinite alternate linear;
+}
