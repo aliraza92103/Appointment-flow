@@ -1,29 +1,30 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { 
-  Bot, 
-  LayoutDashboard, 
+  Robot as Bot, 
+  SquaresFour as LayoutDashboard, 
   Calendar, 
   Users, 
   Bell, 
-  Activity, 
-  Settings, 
-  Smartphone, 
-  LogOut, 
-  Menu, 
+  ChartLineUp as Activity, 
+  Gear as Settings, 
+  DeviceMobile as Smartphone, 
+  SignOut as LogOut, 
+  List as Menu, 
   X,
-  Sparkles,
-  RefreshCw,
-  Send,
-  Wifi,
-  Battery,
+  Sparkle as Sparkles,
+  ArrowsClockwise as RefreshCw,
+  PaperPlaneRight as Send,
+  WifiHigh as Wifi,
+  BatteryFull as Battery,
   Flame,
-  CheckCircle2,
-  Trash2,
+  CheckCircle as CheckCircle2,
+  Trash as Trash2,
   Lock,
   User,
   Info
-} from "lucide-react";
+} from "@phosphor-icons/react";
+import { Toaster, toast } from "sonner";
 
 import { Booking, ReminderTone } from "./types";
 import { supabaseMock, Barber } from "./lib/supabase";
@@ -39,6 +40,18 @@ import AnimatedList from "./components/AnimatedList";
 import HeroLandingView from "./components/HeroLandingView";
 
 export default function App() {
+  // Enhancements: Init & Utilities states
+  const [appInitializing, setAppInitializing] = useState(true);
+  const [showCookieBanner, setShowCookieBanner] = useState(() => {
+    return localStorage.getItem("appointflow_cookie_consent") !== "true";
+  });
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  const handleAcceptCookies = () => {
+    localStorage.setItem("appointflow_cookie_consent", "true");
+    setShowCookieBanner(false);
+  };
+
   // Theme & Session coordinates
   const [currentUser, setCurrentUser] = useState<{ name: string; email: string } | null>(() => {
     const saved = localStorage.getItem("appointflow_user");
@@ -123,6 +136,27 @@ export default function App() {
         setHasApiKey(data.hasKey);
       })
       .catch(() => {});
+  }, []);
+
+  // Simulating initializing state
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAppInitializing(false);
+    }, 1200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Back to top scroll tracking
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 400) {
+        setShowBackToTop(true);
+      } else {
+        setShowBackToTop(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Update simulator fields based on selected booking
@@ -299,13 +333,66 @@ export default function App() {
   ];
 
   // Router mapping for landing and login views
+  if (appInitializing) {
+    return (
+      <div className="fixed inset-0 bg-[#0b0f14] flex flex-col items-center justify-center z-50" id="app-initializing-splash">
+        <div className="absolute inset-0">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[60%] rounded-full bg-emerald-500/10 blur-[120px] spotlight-pulse" />
+        </div>
+        <div className="relative flex flex-col items-center gap-6">
+          <div className="w-16 h-16 rounded-3xl bg-slate-900 border border-emerald-500/20 flex items-center justify-center shadow-xl shadow-emerald-500/10">
+            <RefreshCw className="w-8 h-8 text-emerald-400 animate-spin" />
+          </div>
+          <div className="text-center">
+            <h2 className="text-lg font-black tracking-wider text-white font-sans">AppointFlow</h2>
+            <p className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest mt-1">
+              Synchronizing scheduling clusters...
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (currentRoute === "landing") {
     return (
-      <HeroLandingView 
-        onGetStarted={() => setCurrentRoute("login")} 
-        onSignIn={() => setCurrentRoute("login")}
-        businessName={businessName}
-      />
+      <>
+        <HeroLandingView 
+          onGetStarted={() => setCurrentRoute("login")} 
+          onSignIn={() => setCurrentRoute("login")}
+          businessName={businessName}
+        />
+        {/* Cookie notice banner on landing */}
+        {showCookieBanner && (
+          <div className="fixed bottom-6 left-6 right-6 md:left-auto md:max-w-md z-50 p-5 rounded-2xl glass-panel-heavy border border-white/10 shadow-2xl flex flex-col gap-3" id="cookie-notice-banner">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex gap-2.5 items-start">
+                <Info className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" weight="duotone" />
+                <div className="flex flex-col gap-1">
+                  <h4 className="text-xs font-bold text-white leading-tight">Privacy Consent</h4>
+                  <p className="text-[10px] text-slate-400 leading-relaxed font-sans">
+                    We use cookies to secure persistent enterprise credentials and optimize real-time telemetry pipelines.
+                  </p>
+                </div>
+              </div>
+              <button 
+                onClick={() => setShowCookieBanner(false)}
+                className="text-slate-500 hover:text-white transition-colors cursor-pointer"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </div>
+            <div className="flex gap-2 justify-end">
+              <button 
+                onClick={handleAcceptCookies}
+                className="px-4 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-450 text-slate-950 text-[10px] font-extrabold transition-all cursor-pointer shadow-sm shadow-emerald-500/10"
+              >
+                Acknowledge
+              </button>
+            </div>
+          </div>
+        )}
+      </>
     );
   }
 
@@ -726,6 +813,26 @@ export default function App() {
                   </div>
                 </div>
               )}
+
+              {!["Dashboard", "Appointments", "Specialists", "Reminders Queue", "Performance Data", "Settings Manager", "Interactive Sandbox"].includes(currentView) && (
+                <div className="flex flex-col items-center justify-center py-20 text-center gap-6" id="unrecognized-route-404">
+                  <div className="w-16 h-16 rounded-full bg-rose-500/10 border border-rose-500/25 flex items-center justify-center text-rose-500">
+                    <Info className="w-8 h-8" weight="duotone" />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">Workspace View Not Found</h3>
+                    <p className="text-xs text-[#6b7280] dark:text-slate-400 font-sans max-w-sm">
+                      The active control module segment could not be loaded. This might be due to a malformed direct session link.
+                    </p>
+                  </div>
+                  <button 
+                    onClick={() => setCurrentView("Dashboard")}
+                    className="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-450 text-slate-950 text-xs font-extrabold transition-all cursor-pointer shadow-lg shadow-emerald-500/10"
+                  >
+                    Return to Safe Desk
+                  </button>
+                </div>
+              )}
             </motion.div>
           </AnimatePresence>
         </main>
@@ -849,6 +956,24 @@ export default function App() {
           );
         })}
       </div>
+
+      {/* Modern Toast Notification Overlay */}
+      <Toaster position="top-right" richColors />
+
+      {/* Elegant back to top tracking control */}
+      {showBackToTop && (
+        <button
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            const mainParent = document.querySelector('main')?.parentElement;
+            if (mainParent) mainParent.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+          className="fixed bottom-24 md:bottom-6 right-6 z-40 p-3 rounded-full bg-emerald-500 hover:bg-emerald-450 text-slate-950 shadow-lg shadow-emerald-500/10 hover:shadow-emerald-500/25 transition-all cursor-pointer border border-white/10 hover:-translate-y-1 block no-print"
+          aria-label="Back to top"
+        >
+          <span className="text-xs font-bold leading-none block">▲</span>
+        </button>
+      )}
     </div>
   );
 }

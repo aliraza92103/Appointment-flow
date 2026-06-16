@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
 @import "tailwindcss";
 
 @variant dark (&:where(.dark, .dark *));
@@ -6,7 +6,6 @@
 @theme {
   --font-sans: "Plus Jakarta Sans", "Inter", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
-  --font-serif: "Playfair Display", serif;
   
   --color-grid-lines: var(--grid-lines-color);
 }
@@ -27,6 +26,10 @@
   --theme-accent: #25D366;
   --chart-grid: rgba(255, 255, 255, 0.05);
   --chart-axis: #9ca3af;
+
+  /* Skeletons */
+  --skeleton-from: #1e293b;
+  --skeleton-to: #334155;
 }
 
 html.light {
@@ -45,6 +48,10 @@ html.light {
   --theme-accent: #059669;
   --chart-grid: #f3f4f6;
   --chart-axis: #6b7280;
+
+  /* Skeletons */
+  --skeleton-from: #f1f5f9;
+  --skeleton-to: #e2e8f0;
 }
 
 /* Base resets & styles */
@@ -71,6 +78,87 @@ html, body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
+}
+
+/* Focus styles for keyboard accessibility */
+*:focus-visible {
+  outline: 2px solid #16a34a !important;
+  outline-offset: 2px !important;
+  border-radius: 4px !important;
+}
+
+/* Skeleton Loading Shimmer Animation */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg,
+    var(--skeleton-from) 25%,
+    var(--skeleton-to) 50%,
+    var(--skeleton-from) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* Icon Animations Override & Custom Rules */
+
+/* Sidebar icons */
+.nav-icon {
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.nav-item:hover .nav-icon {
+  transform: scale(1.15) translateX(2px);
+}
+.nav-item.active .nav-icon {
+  filter: drop-shadow(0 0 6px #16a34a);
+}
+
+/* Action button icons */
+.action-icon {
+  transition: transform 0.15s ease;
+}
+.action-btn:hover .action-icon {
+  transform: scale(1.2) rotate(-5deg);
+}
+
+/* Delete icon */
+.delete-btn:hover .trash-icon {
+  transform: scale(1.1);
+  color: #ef4444;
+}
+
+/* Stats card icons */
+.stats-icon {
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+.stats-card:hover .stats-icon {
+  transform: scale(1.25) rotate(10deg);
+}
+
+/* Bell animation */
+@keyframes bell-ring {
+  0%, 100% { transform: rotate(0deg); }
+  10% { transform: rotate(15deg); }
+  20% { transform: rotate(-15deg); }
+  30% { transform: rotate(10deg); }
+  40% { transform: rotate(-10deg); }
+  50% { transform: rotate(5deg); }
+}
+.bell-icon:hover {
+  animation: bell-ring 0.6s ease;
+}
+
+/* WhatsApp icon pulse */
+@keyframes whatsapp-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(37,211,102,0); }
+  100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+}
+.whatsapp-icon-wrap {
+  animation: whatsapp-pulse 2s infinite;
 }
 
 /* Glassmorphism Classes (Apple Liquid Glass UI) */
@@ -190,4 +278,36 @@ html, body {
 
 .liquid-blob {
   animation: fluid-blob 12s infinite alternate linear;
+}
+
+/* Print Optimization Stylesheet Override */
+@media print {
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt !important;
+  }
+  
+  #desktop-main-sidebar,
+  header.sticky,
+  .sticky,
+  button,
+  .action-btn,
+  .no-print {
+    display: none !important;
+  }
+  
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+  
+  .glass-panel,
+  .glass-card {
+    background: #ffffff !important;
+    border: 1px solid #cccccc !important;
+    box-shadow: none !important;
+    color: #000000 !important;
+  }
 }

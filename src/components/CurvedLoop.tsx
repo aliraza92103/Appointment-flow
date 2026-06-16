@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Calendar, Bot, MessageCircle, ArrowRight, Sparkles } from "lucide-react";
+import { CalendarCheck, Robot, WhatsappLogo, Sparkle } from "@phosphor-icons/react";
 
 export default function CurvedLoop() {
   return (
@@ -58,7 +58,7 @@ export default function CurvedLoop() {
               duration: 2.8,
               repeat: Infinity,
               ease: "linear",
-              delay: 1.4 // Offset to look continuous through the AI node!
+              delay: 1.4
             }}
           />
 
@@ -81,7 +81,7 @@ export default function CurvedLoop() {
         <div className="flex flex-col items-center gap-2 z-10" id="source-app-node">
           <div className="w-16 h-16 rounded-full glass-panel-heavy flex items-center justify-center border border-sky-500/30 text-sky-400 shadow-lg shadow-sky-950/20 relative group">
             <div className="absolute inset-0 rounded-full bg-sky-400/5 filter blur-lg transition-all group-hover:bg-sky-400/15" />
-            <Calendar className="w-7 h-7" />
+            <CalendarCheck className="w-7 h-7 nav-icon" weight="duotone" />
             
             {/* Soft labels inside */}
             <span className="absolute -top-1 -right-1 flex h-3 w-3">
@@ -91,7 +91,7 @@ export default function CurvedLoop() {
           </div>
           <span className="text-[11px] font-mono tracking-wider text-white/40 font-semibold text-center uppercase">
             BOOKING INPUT<br/>
-            <span className="text-white/60 text-[10px] lowercase">Google Cal / Calendly</span>
+            <span className="text-white/60 text-[10px] lowercase font-normal">Google Cal / Calendly</span>
           </span>
         </div>
 
@@ -107,15 +107,15 @@ export default function CurvedLoop() {
               transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
             />
 
-            <Bot className="w-8 h-8 text-[#25D366]" />
+            <Robot className="w-8 h-8 text-[#25D366] nav-icon" weight="duotone" />
             <div className="flex items-center gap-0.5 mt-0.5 text-[#00ff88] text-[9px] font-mono font-bold uppercase tracking-widest">
-              <Sparkles className="w-2.5 h-2.5 animate-pulse" />
+              <Sparkle className="w-2.5 h-2.5 animate-pulse" weight="duotone" />
               AI CORE
             </div>
           </div>
           <span className="text-[11px] font-mono tracking-wider text-[#25D366] font-bold text-center uppercase text-glow-green">
             APPOINTFLOW<br/>
-            <span className="text-white/40 text-[10px] lowercase font-normal">Gemini-Tailored Copy</span>
+            <span className="text-white/40 text-[10px] lowercase font-normal font-sans">Gemini-Tailored Copy</span>
           </span>
         </div>
 
@@ -123,11 +123,11 @@ export default function CurvedLoop() {
         <div className="flex flex-col items-center gap-2 z-10" id="delivery-whatsapp-node">
           <div className="w-16 h-16 rounded-full glass-panel-heavy flex items-center justify-center border border-emerald-400/30 text-emerald-400 shadow-lg shadow-emerald-950/25 relative group">
             <div className="absolute inset-0 rounded-full bg-[#25D366]/5 filter blur-lg transition-all group-hover:bg-[#25D366]/15" />
-            <MessageCircle className="w-7 h-7 text-[#25D366]" />
+            <WhatsappLogo className="w-7 h-7 text-[#25D366] nav-icon" weight="duotone" />
           </div>
           <span className="text-[11px] font-mono tracking-wider text-white/40 font-semibold text-center uppercase">
             WHATSAPP REACH<br/>
-            <span className="text-white/60 text-[10px] lowercase">Instant Client Chat</span>
+            <span className="text-white/60 text-[10px] lowercase font-normal">Instant Client Chat</span>
           </span>
         </div>
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Sun, Moon } from "lucide-react";
+import { Sun, Moon } from "@phosphor-icons/react";
 
 export default function ThemeToggle() {
   const [isLight, setIsLight] = useState(() => {
@@ -22,16 +22,16 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={() => setIsLight(!isLight)}
-      className="p-2.5 rounded-xl border border-white/10 hover:border-white/20 glass-button-secondary text-inherit transition-all duration-300 relative group flex items-center justify-center cursor-pointer"
+      className="p-2.5 rounded-xl border border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 glass-button-secondary text-inherit transition-all duration-300 relative group flex items-center justify-center cursor-pointer"
       title={isLight ? "Switch to Dark Mode" : "Switch to Light Mode"}
       aria-label="Theme toggle button"
       id="theme-toggle-control"
     >
       <div className="absolute inset-0 rounded-xl bg-emerald-500/5 filter blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
       {isLight ? (
-        <Moon className="w-4 h-4 text-emerald-600 transition-transform duration-500 group-hover:rotate-12" />
+        <Moon className="w-4 h-4 text-emerald-600 dark:text-emerald-400 nav-icon action-icon" weight="duotone" />
       ) : (
-        <Sun className="w-4 h-4 text-emerald-400 transition-transform duration-500 group-hover:rotate-45" />
+        <Sun className="w-4 h-4 text-emerald-600 dark:text-emerald-400 nav-icon action-icon" weight="duotone" />
       )}
     </button>
   );
