@@ -25,6 +25,8 @@
   --grid-lines-color: rgba(255, 255, 255, 0.05);
   --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   --theme-accent: #25D366;
+  --chart-grid: rgba(255, 255, 255, 0.05);
+  --chart-axis: #9ca3af;
 }
 
 html.light {
@@ -41,6 +43,8 @@ html.light {
   --grid-lines-color: rgba(0, 0, 0, 0.03);
   --card-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.05);
   --theme-accent: #059669;
+  --chart-grid: #f3f4f6;
+  --chart-axis: #6b7280;
 }
 
 /* Base resets & styles */

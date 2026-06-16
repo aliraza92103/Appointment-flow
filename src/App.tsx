@@ -319,7 +319,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-canvas text-theme-primary flex relative transition-colors duration-300 antialiased" id="appointflow-app-shell">
+    <div className="min-h-screen bg-[#f8fafc] dark:bg-[#0b0f14] text-slate-800 dark:text-theme-primary flex relative transition-colors duration-300 antialiased" id="appointflow-app-shell">
       {/* Dynamic Background */}
       <div className="absolute inset-0 bg-radial-gradient from-emerald-500/5 via-transparent to-transparent pointer-events-none -z-10" />
 
@@ -345,20 +345,20 @@ export default function App() {
 
       {/* --- DESKTOP SIDEBAR PANEL --- */}
       <aside 
-        className={`hidden md:flex flex-col gap-6 p-5 border-r border-white/5 bg-slate-950/20 backdrop-blur-xl h-screen sticky top-0 transition-all duration-300 shrink-0 z-40 ${
+        className={`hidden md:flex flex-col gap-6 p-5 border-r border-[#e2e8f0] dark:border-white/5 bg-[#ffffff] dark:bg-slate-950/20 backdrop-blur-xl h-screen sticky top-0 transition-all duration-300 shrink-0 z-40 ${
           sidebarCollapsed ? "w-20" : "w-64"
         }`}
         id="desktop-main-sidebar"
       >
         {/* Brand Header */}
-        <div className="flex items-center gap-3 border-b border-white/5 pb-4">
+        <div className="flex items-center gap-3 border-b border-[#e2e8f0] dark:border-white/5 pb-4 bg-white dark:bg-transparent -mx-5 px-5">
           <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
-            <Bot className="w-5 h-5 text-emerald-400" />
+            <Bot className="w-5 h-5 text-[#16a34a] dark:text-emerald-400" />
           </div>
           {!sidebarCollapsed && (
             <div className="flex flex-col">
-              <span className="font-extrabold tracking-tight text-white font-sans text-sm">AppointFlow</span>
-              <span className="text-[10px] font-mono text-emerald-400 font-semibold uppercase -mt-0.5">Automations V2</span>
+              <span className="font-extrabold tracking-tight text-[#111827] dark:text-white font-sans text-sm">AppointFlow</span>
+              <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-semibold uppercase -mt-0.5">Automations V2</span>
             </div>
           )}
         </div>
@@ -374,8 +374,8 @@ export default function App() {
                 onClick={() => setCurrentView(item.title)}
                 className={`py-3 px-3.5 rounded-xl text-xs font-bold text-left flex items-center gap-3 transition-all cursor-pointer relative ${
                   isMatch 
-                    ? "bg-emerald-500/10 border border-emerald-500/25 text-emerald-400" 
-                    : "text-slate-400 hover:text-white hover:bg-white/5"
+                    ? "bg-[#f0fdf4] dark:bg-emerald-500/10 border border-[#16a34a]/20 dark:border-emerald-500/25 text-[#16a34a] dark:text-emerald-400 border-l-4 border-l-[#16a34a] dark:border-l-emerald-400" 
+                    : "text-[#374151] dark:text-slate-400 hover:text-emerald-600 dark:hover:text-white hover:bg-[#f0fdf4]/45 dark:hover:bg-white/5"
                 }`}
                 title={item.title}
               >
@@ -387,22 +387,22 @@ export default function App() {
         </nav>
 
         {/* User Session profile Footer */}
-        <div className="border-t border-white/5 pt-4 flex flex-col gap-3">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-full bg-emerald-500/10 border border-white/10 text-emerald-400 flex items-center justify-center font-mono font-bold text-xs shrink-0 select-none">
+        <div className="border-t border-[#e2e8f0] dark:border-white/5 pt-4 flex flex-col gap-3">
+          <div className="flex items-center gap-2.5 bg-[#f9fafb] dark:bg-transparent p-2 rounded-xl border border-slate-100 dark:border-transparent">
+            <div className="w-9 h-9 rounded-full bg-emerald-500/10 border border-white/10 text-[#16a34a] dark:text-emerald-400 flex items-center justify-center font-mono font-bold text-xs shrink-0 select-none">
               JD
             </div>
             {!sidebarCollapsed && (
               <div className="flex flex-col gap-0.5 min-w-0">
-                <span className="text-[11px] font-bold text-white truncate leading-none">{currentUser.name}</span>
-                <span className="text-[9px] text-slate-400 font-mono truncate leading-none">{currentUser.email}</span>
+                <span className="text-[11px] font-bold text-[#374151] dark:text-white truncate leading-none">{currentUser.name}</span>
+                <span className="text-[9px] text-[#6b7280] dark:text-slate-400 font-mono truncate leading-none">{currentUser.email}</span>
               </div>
             )}
           </div>
 
           <button
             onClick={handleLogout}
-            className="w-full py-2.5 rounded-xl border border-rose-500/10 hover:border-rose-505/20 bg-rose-500/5 text-rose-400 hover:text-rose-300 font-bold transition-all text-xs flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full py-2.5 rounded-xl border border-[#e2e8f0]/30 dark:border-rose-500/10 hover:border-rose-500/20 bg-rose-500/5 text-rose-500 dark:text-rose-400 hover:text-rose-600 dark:hover:text-rose-300 font-bold transition-all text-xs flex items-center justify-center gap-2 cursor-pointer"
           >
             <LogOut className="w-3.5 h-3.5" />
             {!sidebarCollapsed && <span>Logout Account</span>}
@@ -414,20 +414,20 @@ export default function App() {
       <div className="flex-1 flex flex-col min-w-0 relative h-screen overflow-y-auto">
         
         {/* --- STICKY NAVIGATION TOPBAR --- */}
-        <header className="sticky top-0 w-full z-30 border-b border-white/5 bg-slate-950/10 backdrop-blur-md py-4 px-6 flex items-center justify-between">
+        <header className="sticky top-0 w-full z-30 border-b border-[#e2e8f0] dark:border-white/5 bg-[#ffffff] dark:bg-slate-950/10 backdrop-blur-md py-4 px-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
             {/* Mobile Hamburger menu */}
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className="md:hidden p-2 rounded-xl border border-white/10 text-inherit hover:border-white/20 hover:bg-white/5 cursor-pointer flex items-center justify-center"
+              className="md:hidden p-2 rounded-xl border border-[#e2e8f0] dark:border-white/10 text-[#374151] dark:text-inherit hover:border-slate-300 dark:hover:border-white/20 hover:bg-slate-50 dark:hover:bg-white/5 cursor-pointer flex items-center justify-center"
               aria-label="Open navigation menu"
             >
-              <Menu className="w-4 h-4" />
+              <Menu className="w-4 h-4 text-[#374151] dark:text-white" />
             </button>
             
-            <h1 className="text-sm font-bold font-mono tracking-wider text-slate-400 uppercase hidden sm:inline-block">PORTAL WORKSPACE</h1>
-            <span className="text-xs text-slate-500 uppercase hidden sm:inline-block">/</span>
-            <span className="text-sm font-bold text-white">{currentView.toUpperCase()}</span>
+            <h1 className="text-sm font-bold font-mono tracking-wider text-[#6b7280] dark:text-slate-400 uppercase hidden sm:inline-block">PORTAL WORKSPACE</h1>
+            <span className="text-xs text-[#6b7280] dark:text-slate-500 uppercase hidden sm:inline-block">/</span>
+            <span className="text-sm font-bold text-[#111827] dark:text-white">{currentView.toUpperCase()}</span>
           </div>
 
           <div className="flex items-center gap-3.5">
@@ -435,7 +435,7 @@ export default function App() {
             <ThemeToggle />
 
             {/* Quick Profile initials */}
-            <div className="w-8 h-8 rounded-full border border-white/10 bg-emerald-500/10 flex items-center justify-center text-emerald-400 font-mono font-bold text-xs select-none">
+            <div className="w-8 h-8 rounded-full border border-[#e2e8f0] dark:border-white/10 bg-emerald-500/10 flex items-center justify-center text-[#16a34a] dark:text-emerald-400 font-mono font-bold text-xs select-none">
               JD
             </div>
           </div>
