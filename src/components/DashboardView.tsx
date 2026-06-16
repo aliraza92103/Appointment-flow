@@ -1,11 +1,13 @@
-import { useEffect, useState, memo } from "react";
+import { useEffect, useState, memo, ReactNode } from "react";
 import { motion } from "motion/react";
 import { 
   CalendarBlank, 
   CheckCircle, 
   WhatsappLogo, 
   ChartPieSlice, 
-  ArrowUpRight 
+  ArrowUpRight,
+  Users,
+  Sparkle as Sparkles
 } from "@phosphor-icons/react";
 import { 
   ResponsiveContainer, 
@@ -21,6 +23,58 @@ import {
 } from "recharts";
 import { Booking } from "../types";
 import { supabaseMock } from "../lib/supabase";
+
+// PlanUsageBar dashboard visualizer helper (supports pristine light + dark mode rendering)
+function PlanUsageBar({ 
+  label, 
+  used, 
+  limit, 
+  icon 
+}: { 
+  label: string; 
+  used: number; 
+  limit: number;
+  icon: ReactNode;
+}) {
+  if (limit === -1) {
+    return (
+      <div className="flex items-center justify-between text-xs font-semibold bg-[#25D366]/5 dark:bg-[#25D366]/10 px-3.5 py-2.5 rounded-2xl w-full border border-emerald-500/10">
+        <div className="flex items-center gap-2 text-[#374151] dark:text-slate-300">
+          {icon}
+          <span>{label}</span>
+        </div>
+        <span className="text-[#15803d] dark:text-[#25D366] font-mono font-bold tracking-wide uppercase text-[10px]">Unlimited</span>
+      </div>
+    );
+  }
+
+  const pct = Math.round(Math.min((used / limit) * 100, 100));
+  const color = pct < 60 
+    ? "bg-emerald-500" 
+    : pct < 85 
+      ? "bg-amber-500" 
+      : "bg-rose-500";
+
+  return (
+    <div className="space-y-2 bg-[#f8fafc]/50 dark:bg-white/[0.02] border border-slate-100 dark:border-white/5 p-3.5 rounded-2xl">
+      <div className="flex justify-between text-xs font-semibold">
+        <div className="flex items-center gap-2 text-[#374151] dark:text-slate-200">
+          {icon}
+          <span>{label}</span>
+        </div>
+        <span className="text-slate-500 dark:text-slate-400 font-mono text-[11px]">
+          {used} / {limit}
+        </span>
+      </div>
+      <div className="h-1.5 rounded-full bg-slate-100 dark:bg-white/10 overflow-hidden">
+        <div
+          className={`h-full rounded-full transition-all duration-500 ${color} ${pct >= 100 ? "animate-pulse" : ""}`}
+          style={{ width: `${pct}%` }}
+        />
+      </div>
+    </div>
+  );
+}
 
 interface DashboardViewProps {
   bookings: Booking[];
@@ -86,6 +140,18 @@ export default function DashboardView({ bookings, addLog, webhookLogs, onNavigat
 
   const [loading, setLoading] = useState(true);
 
+  // Plan limits usage trace backend statistics
+  const [planUsage, setPlanUsage] = useState<{
+    plan: string;
+    planName: string;
+    remindersUsed: number;
+    remindersLimit: number;
+    staffCount: number;
+    staffLimit: number;
+    aiUsedToday: number;
+    aiDailyLimit: number;
+  } | null>(null);
+
   useEffect(() => {
     fetch("/api/dashboard/stats")
       .then(res => res.json())
@@ -96,6 +162,9 @@ export default function DashboardView({ bookings, addLog, webhookLogs, onNavigat
           remindersSent: data.remindersSent || 154,
           successRate: data.successRate || "92%"
         });
+        if (data.planUsage) {
+          setPlanUsage(data.planUsage);
+        }
         setLoading(false);
       })
       .catch(() => {
@@ -111,6 +180,18 @@ export default function DashboardView({ bookings, addLog, webhookLogs, onNavigat
           confirmedBookings: confirmed + 8,
           remindersSent: sent,
           successRate: `${success}%`
+        });
+
+        // Mock subscription state fallback
+        setPlanUsage({
+          plan: "free",
+          planName: "Starter",
+          remindersUsed: rems.length,
+          remindersLimit: 50,
+          staffCount: 3,
+          staffLimit: 1,
+          aiUsedToday: 0,
+          aiDailyLimit: 0,
         });
         setLoading(false);
       });
@@ -145,6 +226,63 @@ export default function DashboardView({ bookings, addLog, webhookLogs, onNavigat
           <span className="text-[11px] font-mono tracking-wider font-semibold bg-[#f0fdf4] dark:bg-emerald-500/10 text-[#16a34a] dark:text-emerald-400 px-2.5 py-1 rounded-full border border-emerald-200 dark:border-emerald-500/20">LIVE WEBHOOKS CONNECTED</span>
         </div>
       </header>
+
+      {/* Plan Usage Metric Section Panel */}
+      {planUsage && (
+        <section className="p-6 rounded-3xl bg-white dark:bg-[#11161d] border border-slate-200 dark:border-white/5 text-[#111827] dark:text-white flex flex-col lg:flex-row lg:items-center justify-between gap-6 shadow-[0_1px_3px_rgba(0,0,0,0.05)]">
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-2.5">
+              <span className="text-[10px] font-semibold tracking-widest text-[#059669] dark:text-[#25D366] uppercase font-mono">WORKSPACE METRICS</span>
+              <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                planUsage.plan === "agency" 
+                  ? "bg-purple-100 dark:bg-purple-500/10 border border-purple-200 dark:border-purple-500/30 text-purple-700 dark:text-purple-400"
+                  : planUsage.plan === "pro"
+                  ? "bg-sky-100 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/30 text-sky-700 dark:text-sky-400"
+                  : "bg-emerald-100 dark:bg-[#25D366]/10 border border-emerald-200 dark:border-[#25D366]/20 text-[#059669] dark:text-[#25D366]"
+              }`}>
+                {planUsage.planName} Tier Active
+              </span>
+            </div>
+            <h3 className="text-base font-extrabold tracking-tight">Active Operation Limits</h3>
+            <p className="text-xs text-[#6b7280] dark:text-slate-400 max-w-sm">
+              Your workspace limits update as reminders dispatch, specialist seats are added, and Gemini models draft copy.
+            </p>
+          </div>
+
+          <div className="flex-grow max-w-xl w-full grid grid-cols-1 sm:grid-cols-3 gap-4 lg:ml-6">
+            <PlanUsageBar 
+              label="Reminders Dispatch" 
+              used={planUsage.remindersUsed} 
+              limit={planUsage.remindersLimit} 
+              icon={<WhatsappLogo className="w-4 h-4 text-emerald-500" weight="duotone" />} 
+            />
+            <PlanUsageBar 
+              label="Specialist Seating" 
+              used={planUsage.staffCount} 
+              limit={planUsage.staffLimit} 
+              icon={<Users className="w-4 h-4 text-sky-550" weight="duotone" />} 
+            />
+            <PlanUsageBar 
+              label="Gemini Draft AI" 
+              used={planUsage.aiUsedToday} 
+              limit={planUsage.aiDailyLimit} 
+              icon={<Sparkles className="w-4 h-4 text-purple-500" weight="duotone" />} 
+            />
+          </div>
+
+          {planUsage.plan === "free" && (
+            <div className="shrink-0 lg:ml-4">
+              <button
+                onClick={() => onNavigate("Settings Manager")}
+                className="w-full lg:w-auto px-4 py-2.5 bg-[#059669] dark:bg-[#25D366] hover:opacity-90 text-white dark:text-slate-950 text-xs font-bold rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-sm shadow-emerald-500/10"
+              >
+                <span>Upgrade to Pro</span>
+                <ArrowUpRight className="w-4 h-4 font-bold" />
+              </button>
+            </div>
+          )}
+        </section>
+      )}
 
       {/* Grid: 4 Stats Cards */}
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" aria-label="Quick statistics snapshot">

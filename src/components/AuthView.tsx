@@ -59,6 +59,9 @@ export default function AuthView({ onLoginSuccess, onBackToLanding }: AuthViewPr
 
       const data = await response.json();
       if (response.ok) {
+        if (data.token) {
+          localStorage.setItem("appointflow_token", data.token);
+        }
         onLoginSuccess(fullName || data.name || "Jane Doe", email);
       } else {
         setErrorMsg(data.error || "Something went wrong. Please try again.");
