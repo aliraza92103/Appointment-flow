@@ -1,13 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
 @import "tailwindcss";
 
 @variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: "Plus Jakarta Sans", "Inter", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-sans: "Inter", sans-serif;
+  --font-heading: "Bricolage Grotesque", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "DM Mono", monospace;
   
   --color-grid-lines: var(--grid-lines-color);
+}
+
+/* Global font rules mapping */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading) !important;
+}
+
+p, span, input, button, label, td, li, select, textarea, option {
+  font-family: var(--font-body) !important;
+}
+
+.stats-number, .badge, .label-caps, .font-mono {
+  font-family: var(--font-mono) !important;
 }
 
 :root {
@@ -190,6 +204,21 @@ html, body {
 .glass-card:hover {
   border-color: var(--border-hover);
   background: var(--glass-card-hover);
+}
+
+/* Animated gradient border for premium pro choice cards */
+@keyframes border-gradient-loop {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animated-gradient-border {
+  position: relative;
+  background: linear-gradient(90deg, #059669, #10b981, #25D366, #06b6d4, #059669);
+  background-size: 300% 300%;
+  animation: border-gradient-loop 8s ease infinite;
+  padding: 2px; /* crisp premium border thin glow */
 }
 
 /* Glossy Liquid Glass Button styling */

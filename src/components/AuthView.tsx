@@ -139,7 +139,7 @@ export default function AuthView({ onLoginSuccess, onBackToLanding }: AuthViewPr
         >
           <div className="text-center md:text-left flex flex-col gap-1.5">
             <h2 className="text-2xl font-black text-[#111827] dark:text-white tracking-tight flex items-center justify-center md:justify-start gap-2 font-sans">
-              <span>{isLogin ? "Welcome back 👋" : "Create your account ✨"}</span>
+              <span>{isLogin ? "Welcome back" : "Create your account"}</span>
             </h2>
             <p className="text-xs text-[#6b7280] dark:text-slate-400">
               {isLogin ? "Sign in to access your custom scheduling panel" : "Fill in details to get started with AppointFlow"}

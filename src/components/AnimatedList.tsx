@@ -8,7 +8,8 @@ import {
   CheckCircle, 
   ArrowsClockwise, 
   XCircle, 
-  Clock 
+  Clock,
+  Calendar
 } from "@phosphor-icons/react";
 import LottiePlayer from "./LottiePlayer";
 
@@ -59,7 +60,7 @@ export default function AnimatedList({
           border: "border-emerald-200 dark:border-emerald-500/30",
           text: "text-emerald-700 dark:text-emerald-400 text-glow-green",
           icon: CheckCircle,
-          label: "Confirmed ✅",
+          label: "Confirmed",
           dotColor: "bg-emerald-500 animate-ping",
         };
       case "rescheduled":
@@ -160,8 +161,9 @@ export default function AnimatedList({
                   </p>
 
                   <div className="flex items-center justify-between text-[11px] text-[#6b7280] dark:text-white/40">
-                    <span className="font-mono bg-slate-100 dark:bg-white/[0.03] px-2 py-0.5 rounded border border-slate-200 dark:border-white/5">
-                      📅 {booking.dateTime} | {booking.timeSlot}
+                    <span className="font-mono bg-slate-100 dark:bg-white/[0.03] px-2 py-0.5 rounded border border-slate-200 dark:border-white/5 flex items-center gap-1 font-sans">
+                      <Calendar className="w-3.5 h-3.5 inline-block text-slate-400 dark:text-slate-500" />
+                      <span>{booking.dateTime} | {booking.timeSlot}</span>
                     </span>
                     <span className="text-[10px] opacity-75">
                       Tone: <span className="text-[#374151] dark:text-white/60">{booking.aiTone}</span>

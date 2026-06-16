@@ -99,11 +99,11 @@ export default function AppointmentsView({ bookings, onUpdateBookings, addLog }:
     
     switch (aiTone) {
       case "Urgent & Direct":
-        return `Hello ${clientName || "Customer"}. Please confirm your slot for *${serviceDesc}* with *${businessName}* scheduled on *${dateTime}* at *${timeSlot}*.\n\nYour prompt response ensures resource availability.\n\n👉 Confirm: Reply *1*\n👉 Reschedule: Reply *2*\n👉 Cancel: Reply *3*`;
+        return `Hello ${clientName || "Customer"}. Please confirm your slot for *${serviceDesc}* with *${businessName}* scheduled on *${dateTime}* at *${timeSlot}*.\n\nYour prompt response ensures resource availability.\n\n-> Confirm: Reply *1*\n-> Reschedule: Reply *2*\n-> Cancel: Reply *3*`;
       case "Playful & Friendly":
-        return `Hey ${clientName || "Friend"}! Quick heads up! Your session for *${serviceDesc}* over at *${businessName}* is just around the corner!\n\n📅 When: ${dateTime} at ${timeSlot}\n\nWe've prepped everything for you! Can you let us know if you're still on?\n\n💬 Quick Reply:\n1 - Yes, see you there!\n2 - Need to change the time\n3 - Can't make it this time`;
+        return `Hey ${clientName || "Friend"}! Quick heads up! Your session for *${serviceDesc}* over at *${businessName}* is just around the corner!\n\nWhen: ${dateTime} at ${timeSlot}\n\nWe've prepped everything for you! Can you let us know if you're still on?\n\nQuick Reply:\n1 - Yes, see you there!\n2 - Need to change the time\n3 - Can't make it this time`;
       case "Slick & Ultra-premium":
-        return `Dear ${clientName || "Guest"},\n\nWe look forward to hosting you for your reserved *${serviceDesc}* session with *${businessName}*.\n\n✨ Reservation Details:\n📅 ${dateTime} | ⏰ ${timeSlot}\n\nTo ensure flawless preparation, please verify your arrival:\n\n✨ Reply *1* to Confirm\n✨ Reply *2* to Reschedule\n✨ Reply *3* to Cancel`;
+        return `Dear ${clientName || "Guest"},\n\nWe look forward to hosting you for your reserved *${serviceDesc}* session with *${businessName}*.\n\nReservation Details:\nDate: ${dateTime} | Time: ${timeSlot}\n\nTo ensure flawless preparation, please verify your arrival:\n\nReply *1* to Confirm\nReply *2* to Reschedule\nReply *3* to Cancel`;
       default:
         return `Hi ${clientName || "Customer"}! This is a friendly reminder of your upcoming slot for *${serviceDesc}* with *${businessName}* on *${dateTime}* at *${timeSlot}*.\n\nPlease confirm or manage your slot by choosing one response below:\n\n1 - Confirm Slot\n2 - Reschedule\n3 - Cancel Booking`;
     }

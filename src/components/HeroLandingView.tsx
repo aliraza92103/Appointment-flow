@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import TiltedCard from "./TiltedCard";
 import ThemeToggle from "./ThemeToggle";
+import BeforeAfterSlider from "./BeforeAfterSlider";
 
 interface HeroLandingViewProps {
   onGetStarted: () => void;
@@ -172,7 +173,7 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
   // Scroll event for sticky glass navbar
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -237,19 +238,19 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
     <div className="relative min-h-screen w-full overflow-x-hidden bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300" id="appointflow-landing-root">
       
       {/* SECTION 1: STICKY BLUR NAVBAR */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      <nav className={`fixed top-0 left-0 right-0 z-50 h-[60px] flex items-center transition-all duration-300 ${
         scrolled 
-          ? "py-3 bg-white/70 dark:bg-slate-950/75 backdrop-blur-xl border-b border-slate-200/55 dark:border-white/5 shadow-md shadow-slate-100/10 dark:shadow-none" 
-          : "py-5 bg-transparent border-b border-transparent"
+          ? "bg-white/70 dark:bg-slate-950/75 backdrop-blur-md border-b border-slate-200/55 dark:border-white/5 shadow-md shadow-slate-100/10 dark:shadow-none" 
+          : "bg-transparent border-b border-transparent"
       }`} id="landing-navbar">
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto w-full px-6 flex items-center justify-between">
           
           {/* Logo Brand left */}
           <div className="flex items-center gap-2.5">
             <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
               <Bot className="w-5 h-5" />
             </div>
-            <span className="text-base font-extrabold tracking-tight font-sans text-slate-900 dark:text-white">
+            <span className="text-[20px] font-bold tracking-tight text-slate-900 dark:text-white" style={{ fontFamily: '"Bricolage Grotesque", sans-serif' }}>
               AppointFlow
             </span>
           </div>
@@ -331,7 +332,7 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
       </AnimatePresence>
 
       {/* SECTION 2: HERO (SUPER IMMERSIVE MULTI-SPHERES GRADIENT BACKGROUND) */}
-      <section className="relative min-h-screen w-full flex flex-col justify-center items-center pt-24 pb-20 px-6 overflow-hidden">
+      <section className="relative min-h-screen w-full flex flex-col justify-center items-center py-16 lg:py-24 px-5 md:px-8 lg:px-0 overflow-hidden">
         
         {/* Animated dynamic background layers */}
         <div className="absolute inset-0 pointer-events-none z-0">
@@ -359,7 +360,7 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
           </motion.div>
 
           {/* Headline - HUGE Display Layout (staggered per word) */}
-          <h1 className="text-4xl sm:text-6xl md:text-8xl font-sans font-black tracking-tight text-slate-900 dark:text-white leading-[1.05] max-w-5xl">
+          <h1 className="text-[32px] sm:text-[48px] lg:text-[72px] font-sans font-black tracking-tight text-slate-900 dark:text-white max-w-5xl" style={{ lineHeight: 1.1 }}>
             <motion.span
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
@@ -393,31 +394,31 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-sm sm:text-lg text-slate-500 dark:text-slate-400 max-w-xl mx-auto mt-6 leading-relaxed font-medium"
+            className="text-[14px] sm:text-[16px] lg:text-[18px] text-slate-500 dark:text-slate-400 max-w-xl mx-auto mt-6 leading-relaxed font-semibold font-sans"
           >
             Send automatic, professional WhatsApp reminders to your customers. Zero manual coordination effort. 98% instant delivery rate. Set up in less than 2 minutes.
           </motion.p>
 
-          {/* Two Buttons CTAs */}
+          {/* Two Buttons CTAs with 12px gap */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4.5 mt-9 w-full sm:w-auto"
+            className="flex flex-col sm:flex-row items-center justify-center gap-[12px] mt-9 w-full sm:w-auto"
           >
             <MagneticButton
               onClick={onGetStarted}
-              className="w-full sm:w-auto h-[52px] px-8 rounded-xl font-bold text-white bg-emerald-600 hover:bg-emerald-500 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm transition-all shadow-xl shadow-emerald-500/10 flex items-center justify-center gap-2 hover:scale-[1.02]"
+              className="w-full sm:w-auto min-w-[160px] h-[48px] px-6 rounded-[10px] font-bold text-white bg-emerald-600 hover:bg-emerald-500 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-sm transition-all shadow-xl shadow-emerald-500/10 flex items-center justify-center gap-2 hover:scale-[1.02]"
             >
-              Start Free Today
+              Get Started Free
               <ArrowRight className="w-4 h-4 ml-1" />
             </MagneticButton>
 
             <a
               href="#how-it-works"
-              className="w-full sm:w-auto h-[52px] px-8 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/10 text-slate-800 dark:text-slate-200 font-bold text-sm flex items-center justify-center gap-2 hover:scale-[1.02] transition-all cursor-pointer"
+              className="w-full sm:w-auto min-w-[160px] h-[48px] px-6 rounded-[10px] bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/10 text-slate-800 dark:text-slate-200 font-bold text-sm flex items-center justify-center gap-2 hover:scale-[1.02] transition-all cursor-pointer"
             >
-              <Play className="w-3.5 h-3.5 text-emerald-500 fill-emerald-500" />
+              <span className="text-emerald-500 mr-0.5">▶</span>
               Watch Demo
             </a>
           </motion.div>
@@ -551,7 +552,7 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
       </section>
 
       {/* SECTION 4: FEATURES GRID (3x2 custom items) */}
-      <section id="key-features" className="relative z-10 py-24 px-6 max-w-7xl mx-auto">
+      <section id="key-features" className="relative z-10 py-16 lg:py-24 px-5 md:px-8 lg:px-0 max-w-7xl mx-auto animate-fade-in">
         
         {/* Decorative ambient background spotlight */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[70%] rounded-full bg-emerald-500/5 dark:bg-emerald-500/5 blur-[120px] pointer-events-none -z-10 spotlight-pulse" />
@@ -560,7 +561,7 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
           <span className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest px-3 py-1 bg-emerald-100/50 dark:bg-emerald-500/10 rounded-full border border-emerald-500/15">
             Everything You Need
           </span>
-          <h2 className="text-3xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white mt-4 leading-none font-sans">
+          <h2 className="text-[24px] sm:text-[30px] lg:text-[40px] font-black tracking-tight text-slate-900 dark:text-white mt-4 leading-none font-sans">
             Built for modern businesses
           </h2>
           <p className="text-sm text-slate-400 dark:text-slate-500 max-w-md mx-auto mt-3">
@@ -569,26 +570,26 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
         </div>
 
         {/* Features 3x2 Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {features.map((feat, index) => {
             const IconComponent = feat.icon;
             return (
               <TiltedCard
                 key={index}
                 intensity={12}
-                className="group border border-slate-200/70 dark:border-white/5 relative h-full bg-white dark:bg-slate-900/10 p-8 rounded-2xl hover:border-emerald-500/40 hover:shadow-[0_0_20px_rgba(5,150,105,0.06)] dark:hover:shadow-[0_0_25px_rgba(16,185,129,0.15)] transition-all cursor-crosshair pb-9 duration-300"
+                className="group border border-slate-200/70 dark:border-white/5 relative h-full bg-white dark:bg-slate-900/10 p-[28px] rounded-[16px] hover:border-emerald-500/40 hover:shadow-[0_0_20px_rgba(5,150,105,0.06)] dark:hover:shadow-[0_0_25px_rgba(16,185,129,0.15)] transition-all cursor-crosshair pb-9 duration-300 animate-fade-in"
               >
                 <div className="flex flex-col gap-6">
-                  {/* Neon active green icon (48px / w-12 h-12) */}
-                  <div className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-white/5 flex items-center justify-center text-emerald-600 dark:text-emerald-400 group-hover:scale-105 transition-transform duration-300 shrink-0">
-                    <IconComponent className="w-10 h-10" />
+                  {/* Custom green icon block conforming to guidelines */}
+                  <div className="w-11 h-11 rounded-[12px] bg-[#059669]/8 dark:bg-[#25D366]/10 border border-slate-100 dark:border-white/5 flex items-center justify-center text-emerald-600 dark:text-emerald-400 group-hover:scale-105 transition-transform duration-300 shrink-0 p-[10px]">
+                    <IconComponent className="w-6 h-6" />
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <h3 className="text-lg font-black tracking-tight text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                    <h3 className="text-[15px] lg:text-[17px] font-black tracking-tight text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                       {feat.title}
                     </h3>
-                    <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 leading-relaxed mt-1 font-sans font-medium">
+                    <p className="text-[12px] lg:text-[14px] text-slate-500 dark:text-slate-400 leading-relaxed mt-1 font-sans font-medium">
                       {feat.desc}
                     </p>
                   </div>
@@ -600,13 +601,13 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
       </section>
 
       {/* SECTION 5: HOW IT WORKS STEPPER */}
-      <section id="how-it-works" className="relative z-10 py-24 border-t border-slate-100 dark:border-white/5 bg-slate-50/20 dark:bg-slate-950/20 w-full">
-        <div className="max-w-7xl mx-auto px-6">
+      <section id="how-it-works" className="relative z-10 py-16 lg:py-24 border-t border-slate-100 dark:border-white/5 bg-slate-50/20 dark:bg-slate-950/20 w-full px-5 md:px-8 lg:px-0">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 select-none">
             <span className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">
               STEP BY STEP
             </span>
-            <h2 className="text-3xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white mt-2 leading-none">
+            <h2 className="text-[24px] sm:text-[30px] lg:text-[40px] font-black tracking-tight text-slate-900 dark:text-white mt-2 leading-none">
               Up and running in 3 steps
             </h2>
             <p className="text-sm text-slate-400 dark:text-slate-500 max-w-md mx-auto mt-3">
@@ -615,7 +616,7 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
           </div>
 
           {/* Stepper container */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 relative">
             
             {/* Horizontal timeline line (Desktop only) */}
             <div className="hidden md:block absolute top-[28px] left-[15%] right-[15%] h-0.5 bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 opacity-20 -z-10" />
@@ -711,13 +712,16 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
         </div>
       </section>
 
+      {/* SECTION 5.5: BEFORE/AFTER COMPARISON SLIDER */}
+      <BeforeAfterSlider />
+
       {/* SECTION 6: PRICING WITH TOGGLE (STARTER FREE, PRO ACTIVE, AGENCY SPLIT) */}
-      <section id="pricing" className="relative z-10 py-24 px-6 max-w-7xl mx-auto">
+      <section id="pricing" className="relative z-10 py-16 lg:py-24 px-5 md:px-8 lg:px-0 max-w-7xl mx-auto animate-fade-in">
         <div className="text-center mb-16 select-none">
           <span className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest px-3 py-1 bg-emerald-100/50 dark:bg-emerald-500/10 rounded-full border border-emerald-500/15">
             PLANS & PRICING
           </span>
-          <h2 className="text-3xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white mt-4 leading-none">
+          <h2 className="text-[24px] sm:text-[30px] lg:text-[40px] font-black tracking-tight text-slate-900 dark:text-white mt-4 leading-none">
             Simple, transparent pricing
           </h2>
           <p className="text-sm text-slate-400 dark:text-slate-500 max-w-sm mx-auto mt-3">
@@ -748,10 +752,10 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
         </div>
 
         {/* 3 Cards Row */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch font-sans">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-stretch font-sans">
           
           {/* STARTER CARD */}
-          <div className="flex flex-col justify-between p-8 rounded-2xl border border-slate-200 dark:border-white/5 bg-white dark:bg-slate-900/10 shadow-lg relative">
+          <div className="flex flex-col justify-between p-8 rounded-2xl border border-slate-200 dark:border-white/5 bg-white dark:bg-slate-900/10 shadow-lg relative h-full">
             <div className="flex flex-col gap-5">
               <div>
                 <span className="text-[10px] font-mono font-bold text-slate-400 tracking-widest uppercase">STARTER PLAN</span>
@@ -759,7 +763,7 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
               </div>
               
               <div className="flex items-baseline gap-1 text-slate-900 dark:text-white">
-                <span className="text-4xl font-extrabold">$0</span>
+                <span className="text-[36px] lg:text-[48px] font-extrabold">$0</span>
                 <span className="text-xs text-slate-400">/ month</span>
               </div>
 
@@ -800,68 +804,70 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
             </button>
           </div>
 
-          {/* PRO PRO_PLAN (HIGHLIGHTED CATEGORY) */}
-          <div className="flex flex-col justify-between p-8 rounded-2xl border-2 border-emerald-500 bg-white dark:bg-slate-900/20 shadow-xxl relative transform md:-translate-y-2">
-            
-            {/* Spotlight label overlay */}
-            <div className="absolute top-0 right-6 -translate-y-1/2 px-3 py-1 rounded-full bg-emerald-500 text-white text-[9px] font-black uppercase tracking-widest flex items-center gap-1 shadow-md shadow-emerald-500/10">
-              <Award className="w-3 h-3 animate-bounce" />
-              <span>Most Popular</span>
-            </div>
-
-            <div className="flex flex-col gap-5">
-              <div>
-                <span className="text-[10px] font-mono font-bold text-emerald-600 dark:text-emerald-400 tracking-widest uppercase">ELEVATED PERFORMANCE</span>
-                <h3 className="text-xl font-black text-slate-900 dark:text-white mt-1">Professional Choice</h3>
+          {/* PRO PRO_PLAN (WITH CUSTOM ANIMATED GRADIENT GLOW BORDER AND SAME HEIGHT INNER CONTAINER) */}
+          <div className="animated-gradient-border rounded-2xl md:-translate-y-2 relative shadow-xxl flex flex-col">
+            <div className="flex flex-col justify-between p-8 rounded-[14px] bg-white dark:bg-slate-900 w-full h-full relative z-10 z-20">
+              
+              {/* Spotlight label overlay */}
+              <div className="absolute top-0 right-6 -translate-y-1/2 px-3 py-1 rounded-full bg-emerald-500 text-white text-[9px] font-black uppercase tracking-widest z-30 flex items-center gap-1 shadow-md shadow-emerald-500/10">
+                <Award className="w-3 h-3 animate-bounce" />
+                <span>Most Popular</span>
               </div>
 
-              <div className="flex items-baseline gap-1 text-slate-900 dark:text-white">
-                <span className="text-4xl font-extrabold">
-                  ${isYearly ? "16" : "20"}
-                </span>
-                <span className="text-xs text-slate-400">/ month</span>
+              <div className="flex flex-col gap-5">
+                <div>
+                  <span className="text-[10px] font-mono font-bold text-emerald-600 dark:text-emerald-400 tracking-widest uppercase">ELEVATED PERFORMANCE</span>
+                  <h3 className="text-xl font-black text-slate-900 dark:text-white mt-1">Professional Choice</h3>
+                </div>
+
+                <div className="flex items-baseline gap-1 text-slate-900 dark:text-white">
+                  <span className="text-[36px] lg:text-[48px] font-extrabold">
+                    ${isYearly ? "16" : "20"}
+                  </span>
+                  <span className="text-xs text-slate-400">/ month</span>
+                </div>
+
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans mt-1">
+                  For busy salons, clinics, or multi-specialist groups looking to fully coordinate customer rosters automatically with zero stress.
+                </p>
+
+                <div className="h-[1px] bg-slate-200 dark:bg-white/10 my-2" />
+
+                <ul className="flex flex-col gap-3 text-xs text-slate-500 dark:text-slate-400 font-sans font-semibold">
+                  <li className="flex items-center gap-2.5">
+                    <Check className="w-4 h-4 text-emerald-500" />
+                    <span className="text-slate-900 dark:text-white font-extrabold">Unlimited direct messages</span>
+                  </li>
+                  <li className="flex items-center gap-2.5">
+                    <Check className="w-4 h-4 text-emerald-500" />
+                    <span>Up to 10 staff specialists</span>
+                  </li>
+                  <li className="flex items-center gap-2.5">
+                    <Check className="w-4 h-4 text-emerald-500" />
+                    <span className="text-emerald-600 dark:text-emerald-400">AI Gemini generator active</span>
+                  </li>
+                  <li className="flex items-center gap-2.5">
+                    <Check className="w-4 h-4 text-emerald-500" />
+                    <span>Comprehensive analytics dashboard</span>
+                  </li>
+                  <li className="flex items-center gap-2.5">
+                    <Check className="w-4 h-4 text-emerald-500" />
+                    <span>Priority 24/7 client support</span>
+                  </li>
+                </ul>
               </div>
 
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-sans mt-1">
-                For busy salons, clinics, or multi-specialist groups looking to fully coordinate customer rosters automatically with zero stress.
-              </p>
-
-              <div className="h-[1px] bg-slate-200 dark:bg-white/10 my-2" />
-
-              <ul className="flex flex-col gap-3 text-xs text-slate-500 dark:text-slate-400 font-sans font-semibold">
-                <li className="flex items-center gap-2.5">
-                  <Check className="w-4 h-4 text-emerald-500" />
-                  <span className="text-slate-900 dark:text-white font-extrabold">Unlimited direct messages</span>
-                </li>
-                <li className="flex items-center gap-2.5">
-                  <Check className="w-4 h-4 text-emerald-500" />
-                  <span>Up to 10 staff specialists</span>
-                </li>
-                <li className="flex items-center gap-2.5">
-                  <Check className="w-4 h-4 text-emerald-500" />
-                  <span className="text-emerald-600 dark:text-emerald-400">AI Gemini generator active</span>
-                </li>
-                <li className="flex items-center gap-2.5">
-                  <Check className="w-4 h-4 text-emerald-500" />
-                  <span>Comprehensive analytics dashboard</span>
-                </li>
-                <li className="flex items-center gap-2.5">
-                  <Check className="w-4 h-4 text-emerald-500" />
-                  <span>Priority 24/7 client support</span>
-                </li>
-              </ul>
+              <button
+                onClick={onGetStarted}
+                className="w-full py-3.5 mt-8 bg-emerald-600 hover:bg-emerald-500 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-white font-bold text-xs rounded-xl transition-all cursor-pointer shadow-md shadow-emerald-500/10 hover:scale-[1.01]"
+              >
+                Get Pro Now
+              </button>
             </div>
-
-            <button
-              onClick={onGetStarted}
-              className="w-full py-3.5 mt-8 bg-emerald-600 hover:bg-emerald-500 dark:bg-emerald-500 dark:hover:bg-emerald-400 text-white dark:text-slate-950 font-bold text-xs rounded-xl transition-all cursor-pointer shadow-md shadow-emerald-500/10 hover:scale-[1.01]"
-            >
-              Get Pro Now
-            </button>
           </div>
 
           {/* AGENCY / COMPANY SLOT */}
-          <div className="flex flex-col justify-between p-8 rounded-2xl border border-slate-200 dark:border-white/5 bg-white dark:bg-slate-900/10 shadow-lg relative">
+          <div className="flex flex-col justify-between p-8 rounded-2xl border border-slate-200 dark:border-white/5 bg-white dark:bg-slate-900/10 shadow-lg relative h-full">
             <div className="flex flex-col gap-5">
               <div>
                 <span className="text-[10px] font-mono font-bold text-slate-400 tracking-widest uppercase">CORP OPERATIONS</span>
@@ -869,7 +875,7 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
               </div>
 
               <div className="flex items-baseline gap-1 text-slate-900 dark:text-white">
-                <span className="text-4xl font-extrabold">
+                <span className="text-[36px] lg:text-[48px] font-extrabold">
                   ${isYearly ? "39" : "49"}
                 </span>
                 <span className="text-xs text-slate-400">/ month</span>
@@ -917,12 +923,12 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
       </section>
 
       {/* SECTION 7: TESTIMONIALS INFINITE MARQUEE ROW (Row 1 Left, Row 2 Right) */}
-      <section id="testimonials" className="relative z-10 py-24 border-t border-slate-100 dark:border-white/5 bg-slate-50/20 dark:bg-slate-950/20 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 text-center select-none mb-14">
+      <section id="testimonials" className="relative z-10 py-16 lg:py-24 border-t border-slate-100 dark:border-white/5 bg-slate-50/20 dark:bg-slate-950/20 overflow-hidden">
+        <div className="max-w-7xl mx-auto text-center select-none mb-14 px-5 md:px-8 lg:px-0">
           <span className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">
             TESTIMONIALS
           </span>
-          <h2 className="text-3xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white mt-2 leading-none">
+          <h2 className="text-[24px] sm:text-[30px] lg:text-[40px] font-black tracking-tight text-slate-900 dark:text-white mt-2 leading-none">
             Loved by businesses worldwide
           </h2>
           <p className="text-sm text-slate-400 dark:text-slate-500 max-w-sm mx-auto mt-3">
@@ -939,12 +945,15 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
                   <div className="flex gap-1.5 mb-3.5 text-amber-500">
                     {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-amber-500" />)}
                   </div>
-                  <p className="text-xs md:text-sm text-slate-600 dark:text-slate-300 italic leading-relaxed">
-                    "{test.quote}"
-                  </p>
+                  <div className="flex gap-1.5 align-top">
+                    <span className="text-[32px] font-serif text-emerald-500 leading-none select-none font-black shrink-0">“</span>
+                    <p className="text-[13px] lg:text-[15px] text-slate-600 dark:text-slate-300 italic leading-relaxed">
+                      {test.quote}
+                    </p>
+                  </div>
                 </div>
                 <div className="flex items-center gap-3 mt-4.5 pt-3 border-t border-slate-100 dark:border-white/5">
-                  <div className="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center font-extrabold text-[10px] text-emerald-600 dark:text-emerald-400 uppercase tracking-widest shrink-0">
+                  <div className="w-[36px] h-[36px] rounded-full bg-emerald-600 dark:bg-emerald-500 flex items-center justify-center font-semibold text-[14px] text-white uppercase shrink-0">
                     {test.author.substring(0, 2)}
                   </div>
                   <div className="flex flex-col">
@@ -966,12 +975,15 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
                   <div className="flex gap-1.5 mb-3.5 text-amber-500">
                     {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-amber-500" />)}
                   </div>
-                  <p className="text-xs md:text-sm text-slate-600 dark:text-slate-300 italic leading-relaxed">
-                    "{test.quote}"
-                  </p>
+                  <div className="flex gap-1.5 align-top">
+                    <span className="text-[32px] font-serif text-emerald-500 leading-none select-none font-black shrink-0">“</span>
+                    <p className="text-[13px] lg:text-[15px] text-slate-600 dark:text-slate-300 italic leading-relaxed">
+                      {test.quote}
+                    </p>
+                  </div>
                 </div>
                 <div className="flex items-center gap-3 mt-4.5 pt-3 border-t border-slate-100 dark:border-white/5">
-                  <div className="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center font-extrabold text-[10px] text-emerald-600 dark:text-emerald-400 uppercase tracking-widest shrink-0">
+                  <div className="w-[36px] h-[36px] rounded-full bg-emerald-600 dark:bg-emerald-500 flex items-center justify-center font-semibold text-[14px] text-white uppercase shrink-0">
                     {test.author.substring(0, 2)}
                   </div>
                   <div className="flex flex-col">
@@ -986,12 +998,12 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
       </section>
 
       {/* SECTION 8: FAQ ACCORDIONS (6 questions exactly as specified) */}
-      <section id="faq" className="relative z-10 py-24 px-6 max-w-4xl mx-auto">
+      <section id="faq" className="relative z-10 py-16 lg:py-24 px-5 md:px-8 lg:px-0 max-w-4xl mx-auto">
         <div className="text-center mb-16 select-none">
           <span className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">
             FAQ HUB
           </span>
-          <h2 className="text-3xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white mt-2 leading-none">
+          <h2 className="text-[24px] sm:text-[30px] lg:text-[40px] font-black tracking-tight text-slate-900 dark:text-white mt-2 leading-none">
             Frequently asked questions
           </h2>
           <p className="text-sm text-slate-400 dark:text-slate-500 mt-2 leading-relaxed">
@@ -1028,8 +1040,8 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
       </section>
 
       {/* SECTION 9: CTA BANNER */}
-      <section className="relative z-10 py-24 px-6 w-full max-w-7xl mx-auto">
-        <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-emerald-600 to-teal-800 dark:from-emerald-950 dark:to-slate-900 p-12 md:p-16 text-center shadow-2xl flex flex-col items-center gap-6 border border-emerald-500/20">
+      <section className="relative z-10 py-16 lg:py-24 px-5 md:px-8 lg:px-0 w-full max-w-7xl mx-auto">
+        <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-emerald-600 to-teal-800 dark:from-emerald-950 dark:to-slate-900 p-8 md:p-16 text-center shadow-2xl flex flex-col items-center gap-6 border border-emerald-500/20">
           
           {/* Subtle decoration overlay */}
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1.5px,transparent_1.5px)] bg-[size:20px_20px] opacity-40" />
@@ -1038,17 +1050,17 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
             SLASH CANCELLATIONS NOW
           </span>
           
-          <h2 className="relative z-10 text-3xl md:text-6xl font-black tracking-tight text-white leading-tight max-w-2xl font-sans">
+          <h2 className="relative z-10 text-[26px] sm:text-[36px] lg:text-[48px] font-black tracking-tight text-white leading-tight max-w-2xl font-sans">
             Ready to eliminate no-shows?
           </h2>
 
-          <p className="relative z-10 text-sm md:text-base text-emerald-100/80 max-w-md mt-1 leading-relaxed">
+          <p className="relative z-10 text-xs sm:text-sm md:text-base text-emerald-100/80 max-w-md mt-1 leading-relaxed">
             Join 500+ active cosmetic specialty centers and modern salons already scheduling client queues automatically.
           </p>
 
           <MagneticButton
             onClick={onGetStarted}
-            className="relative z-10 mt-4 px-9 py-4 font-bold bg-white text-emerald-950 font-sans hover:bg-emerald-50 rounded-xl text-sm transition-all shadow-xl shadow-emerald-900/30 font-extrabold flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.02]"
+            className="relative z-10 mt-4 px-9 py-4 font-bold bg-white text-emerald-950 font-sans hover:bg-emerald-550 rounded-xl text-sm transition-all shadow-xl shadow-emerald-900/30 font-extrabold flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.02]"
           >
             Get Started Free
             <ArrowRight className="w-4 h-4 text-emerald-800" />
@@ -1061,11 +1073,11 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
       </section>
 
       {/* SECTION 10: FOOTER BRANDING CARD */}
-      <footer className="relative z-10 border-t border-slate-100 dark:border-white/5 bg-slate-50/80 dark:bg-slate-950 px-6 py-16 w-full select-none text-xs text-slate-500 dark:text-slate-400 font-sans">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-12 mb-12">
+      <footer className="relative z-10 border-t border-slate-100 dark:border-white/5 bg-slate-50/80 dark:bg-slate-950 px-5 md:px-8 py-16 w-full select-none text-[12px] text-slate-500 dark:text-slate-400 font-sans">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-5 gap-y-10 gap-x-6 lg:gap-12 mb-12">
           
           {/* Branding column */}
-          <div className="md:col-span-2 flex flex-col gap-4">
+          <div className="col-span-2 flex flex-col gap-4">
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400 shrink-0">
                 <Bot className="w-4.5 h-4.5" />
@@ -1091,8 +1103,8 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
           </div>
 
           {/* Product Links */}
-          <div className="flex flex-col gap-3 font-semibold">
-            <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-1">Product</span>
+          <div className="col-span-1 flex flex-col gap-3 font-semibold">
+            <span className="text-[11px] font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-1">Product</span>
             <a href="#key-features" className="hover:text-emerald-500 transition-colors">Engine Features</a>
             <a href="#how-it-works" className="hover:text-emerald-500 transition-colors">Step Guide</a>
             <a href="#pricing" className="hover:text-emerald-500 transition-colors">Pricing Options</a>
@@ -1100,8 +1112,8 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
           </div>
 
           {/* Company Links */}
-          <div className="flex flex-col gap-3 font-semibold">
-            <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-1">Company</span>
+          <div className="col-span-1 flex flex-col gap-3 font-semibold">
+            <span className="text-[11px] font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-1">Company</span>
             <a href="#" className="hover:text-emerald-500 transition-colors">About Us</a>
             <a href="#" className="hover:text-emerald-500 transition-colors">Roster Careers</a>
             <a href="#" className="hover:text-emerald-500 transition-colors">Press Portfolio</a>
@@ -1109,8 +1121,8 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
           </div>
 
           {/* Resources & Legal Links */}
-          <div className="flex flex-col gap-3 font-semibold">
-            <span className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-1">Resources</span>
+          <div className="col-span-1 flex flex-col gap-3 font-semibold">
+            <span className="text-[11px] font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-1">Resources</span>
             <a href="#" className="hover:text-emerald-500 transition-colors">Support Center</a>
             <a href="#" className="hover:text-emerald-500 transition-colors">API Keys Reference</a>
             <a href="#" className="hover:text-emerald-500 transition-colors">Privacy Policy</a>
@@ -1120,8 +1132,12 @@ export default function HeroLandingView({ onGetStarted, onSignIn, businessName }
         </div>
 
         <div className="max-w-7xl mx-auto pt-8 border-t border-slate-100 dark:border-white/5 flex flex-col md:flex-row items-center justify-between gap-4 font-medium">
-          <span>© 1999–2026 AppointFlow Applet Inc. All rights reserved.</span>
-          <div className="flex items-center gap-1">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-center sm:text-left text-[12px] text-slate-400 dark:text-slate-500">
+            <span>© 1999–2026 AppointFlow Applet Inc. All rights reserved.</span>
+            <span className="hidden sm:inline text-slate-200 dark:text-white/10">|</span>
+            <span>Designed & Developed by <a href="https://nexorawebz.com" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-500 dark:hover:text-emerald-400 underline decoration-emerald-500/30 transition-all duration-200">nexorawebz.com</a></span>
+          </div>
+          <div className="flex items-center gap-1 text-[12px] text-slate-400 dark:text-slate-500">
             <span>Made with</span>
             <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500 animate-pulse" />
             <span>for elite schedulers worldwide.</span>

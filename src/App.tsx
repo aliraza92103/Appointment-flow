@@ -38,10 +38,13 @@ import AnalyticsView from "./components/AnalyticsView";
 import SettingsView from "./components/SettingsView";
 import AnimatedList from "./components/AnimatedList";
 import HeroLandingView from "./components/HeroLandingView";
+import IntroSplash from "./components/IntroSplash";
 
 export default function App() {
   // Enhancements: Init & Utilities states
-  const [appInitializing, setAppInitializing] = useState(true);
+  const [appInitializing, setAppInitializing] = useState(() => {
+    return sessionStorage.getItem("appointflow_splash_seen") !== "true";
+  });
   const [showCookieBanner, setShowCookieBanner] = useState(() => {
     return localStorage.getItem("appointflow_cookie_consent") !== "true";
   });
@@ -138,12 +141,9 @@ export default function App() {
       .catch(() => {});
   }, []);
 
-  // Simulating initializing state
+  // Simulating initializing state removed for IntroSplash sequence
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setAppInitializing(false);
-    }, 1200);
-    return () => clearTimeout(timer);
+    // Handled by IntroSplash component callback
   }, []);
 
   // Back to top scroll tracking
@@ -335,22 +335,7 @@ export default function App() {
   // Router mapping for landing and login views
   if (appInitializing) {
     return (
-      <div className="fixed inset-0 bg-[#0b0f14] flex flex-col items-center justify-center z-50" id="app-initializing-splash">
-        <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60%] h-[60%] rounded-full bg-emerald-500/10 blur-[120px] spotlight-pulse" />
-        </div>
-        <div className="relative flex flex-col items-center gap-6">
-          <div className="w-16 h-16 rounded-3xl bg-slate-900 border border-emerald-500/20 flex items-center justify-center shadow-xl shadow-emerald-500/10">
-            <RefreshCw className="w-8 h-8 text-emerald-400 animate-spin" />
-          </div>
-          <div className="text-center">
-            <h2 className="text-lg font-black tracking-wider text-white font-sans">AppointFlow</h2>
-            <p className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest mt-1">
-              Synchronizing scheduling clusters...
-            </p>
-          </div>
-        </div>
-      </div>
+      <IntroSplash onComplete={() => setAppInitializing(false)} />
     );
   }
 
@@ -788,19 +773,19 @@ export default function App() {
                             <span className="text-[9px] text-center font-mono opacity-50 font-bold uppercase select-none">Client reply options</span>
                             <div className="grid grid-cols-1 gap-1.5">
                               <button
-                                onClick={() => handleSimulatedReply("1", "Confirm Slot ✅ (1)")}
+                                onClick={() => handleSimulatedReply("1", "Confirm Slot [OK] (1)")}
                                 className="py-1.5 px-3 rounded-xl border border-white/5 hover:border-emerald-500/20 bg-slate-900 text-slate-200 text-[10px] font-bold cursor-pointer"
                               >
                                 Reply 1 (Confirm Appointment)
                               </button>
                               <button
-                                onClick={() => handleSimulatedReply("2", "Reschedule 🔄 (2)")}
+                                onClick={() => handleSimulatedReply("2", "Reschedule [LATER] (2)")}
                                 className="py-1.5 px-3 rounded-xl border border-white/5 hover:border-purple-500/20 bg-slate-900 text-slate-200 text-[10px] font-bold cursor-pointer"
                               >
                                 Reply 2 (Request Reschedule)
                               </button>
                               <button
-                                onClick={() => handleSimulatedReply("3", "Cancel Booking ❌ (3)")}
+                                onClick={() => handleSimulatedReply("3", "Cancel Booking [CANCEL] (3)")}
                                 className="py-1.5 px-3 rounded-xl border border-white/5 hover:border-rose-500/20 bg-slate-900 text-slate-200 text-[10px] font-bold cursor-pointer"
                               >
                                 Reply 3 (Cancel Reservation)
